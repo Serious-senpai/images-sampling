@@ -18,7 +18,7 @@ def detect_similar_images(directory: str) -> None:
     start = time.perf_counter()
     for index, filename in enumerate(filenames):
         location = join(directory, filename)
-        hash = imagehash.average_hash(Image.open(location), hash_size=256)
+        hash = imagehash.average_hash(Image.open(location), hash_size=512)
         try:
             hashes[hash].append(filename)
         except KeyError:
@@ -49,7 +49,7 @@ def detect_similar_images(directory: str) -> None:
 
                 location = join(directory, filename)
                 os.remove(location)
-                print(f"Removed {location} - duplicate in " + ", ".join(filenames))
+                print(f"Removed {filename} - duplicate in " + ", ".join(filenames))
                 remove_count += 1
 
     print(f"Removed {remove_count} images")
